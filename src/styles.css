@@ -1,0 +1,649 @@
+/* =============================================================================
+   Mi Billetera Lite — hoja de estilos (Mobile First)
+   Estilo plano y minimalista: colores sólidos, sin degradados ni sombras.
+   ========================================================================== */
+
+:root {
+  --bg: #0b0b0e;
+  --surface: #131317;
+  --surface-2: #1a1a20;
+  --border: #23232b;
+  --border-strong: #32323d;
+  --text: #f2f2f5;
+  --text-dim: #9a9aa8;
+  --text-faint: #6b6b7a;
+  --primary: #10b981;
+  --primary-hover: #2dcb96;
+  --primary-contrast: #04140d;
+  --danger: #f87171;
+  --warning: #e0b64b;
+  --radius: 10px;
+  --radius-sm: 8px;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100dvh;
+  font-family: var(--font);
+  color: var(--text);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.app {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: max(20px, env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+
+.icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+/* ------------------------------- header ---------------------------------- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 0 4px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  background: var(--primary);
+}
+
+.brand__mark svg {
+  width: 20px;
+  height: 20px;
+}
+
+.brand__text {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.brand__text strong {
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.brand__text small {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.banner {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--warning);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+/* ------------------------------ totalizador ------------------------------ */
+.summary {
+  padding: 18px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.summary__label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.summary__total {
+  margin: 8px 0 0;
+  font-size: clamp(2.1rem, 10vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.summary__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.summary__meta strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.bar {
+  display: flex;
+  height: 4px;
+  margin-top: 16px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+
+.bar__segment {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.73rem;
+  color: var(--text-dim);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend b {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.legend__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+/* -------------------------------- tarjetas ------------------------------- */
+.card {
+  padding: 18px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.card__title {
+  margin: 0 0 14px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+/* ------------------------------ formulario ------------------------------- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field label,
+.field__legend {
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 11px 12px;
+  font-size: 0.97rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.field input::placeholder {
+  color: var(--text-faint);
+}
+
+.field input:focus-visible {
+  border-color: var(--border-strong);
+}
+
+.field input[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+
+.field__money {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field__money span {
+  position: absolute;
+  left: 12px;
+  font-size: 0.97rem;
+  color: var(--text-faint);
+  pointer-events: none;
+}
+
+.field__money input {
+  padding-left: 26px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Oculta las flechas del input numérico */
+.field__money input::-webkit-outer-spin-button,
+.field__money input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.field__money input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.field__error {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--danger);
+}
+
+/* --------------------------------- chips --------------------------------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 11px;
+  font-family: inherit;
+  font-size: 0.81rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.chip:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+
+.chip--active {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--chip-color, var(--primary)) 45%, transparent);
+  background: color-mix(in srgb, var(--chip-color, var(--primary)) 9%, transparent);
+}
+
+.chip--sm {
+  padding: 6px 10px;
+  font-size: 0.76rem;
+}
+
+.chips--filter {
+  margin-bottom: 14px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+
+.chips--filter::-webkit-scrollbar {
+  display: none;
+}
+
+.chips--filter .chip {
+  flex: none;
+}
+
+/* -------------------------------- botones -------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 11px 16px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  color: var(--primary-contrast);
+  font-weight: 600;
+  background: var(--primary);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.btn--block {
+  width: 100%;
+  margin-top: 2px;
+}
+
+.btn--ghost {
+  color: var(--text-dim);
+  border-color: var(--border);
+}
+
+.btn--ghost:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.btn--sm {
+  padding: 6px 10px;
+  font-size: 0.77rem;
+}
+
+/* -------------------------------- historial ------------------------------ */
+.list__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.list__head .card__title {
+  margin: 0;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  animation: fade 0.25s ease both;
+}
+
+.item + .item {
+  border-top: 1px solid var(--border);
+}
+
+
+.item__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.item__concepto {
+  font-size: 0.9rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item__meta {
+  font-size: 0.73rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item__amount {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+}
+
+.item__monto {
+  font-size: 0.93rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.item__fecha {
+  font-size: 0.69rem;
+  color: var(--text-faint);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.item__delete {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  color: var(--text-faint);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.item__delete svg {
+  width: 16px;
+  height: 16px;
+}
+
+.item__delete:hover {
+  color: var(--danger);
+}
+
+/* ------------------------------ estado vacío ----------------------------- */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  padding: 28px 10px 22px;
+}
+
+.empty__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 6px;
+  border-radius: var(--radius-sm);
+  color: var(--text-faint);
+  border: 1px solid var(--border);
+}
+
+.empty__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.empty__title {
+  margin: 0;
+  font-size: 0.89rem;
+  font-weight: 500;
+}
+
+.empty__text {
+  margin: 0;
+  max-width: 34ch;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-faint);
+}
+
+/* ------------------------------- skeleton -------------------------------- */
+.skeleton {
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.skeleton--sm {
+  height: 24px;
+  margin-top: 10px;
+  width: 60%;
+}
+
+/* --------------------------------- toast --------------------------------- */
+.toast-area {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.toast {
+  max-width: 420px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  animation: fade 0.2s ease both;
+}
+
+/* ------------------------------ animaciones ------------------------------ */
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* --------------------------- pantallas grandes --------------------------- */
+@media (min-width: 720px) {
+  .app {
+    padding-top: 36px;
+  }
+
+  .card,
+  .summary {
+    padding: 20px 18px;
+  }
+}
