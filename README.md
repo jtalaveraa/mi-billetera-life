@@ -23,8 +23,8 @@ local en **IndexedDB**.
 | Persistencia local sin servidor | [`src/db.js`](src/db.js) — IndexedDB con respaldo automático a `localStorage` |
 | HTTPS / localhost | GitHub Pages sirve con HTTPS; en desarrollo se usa `localhost` |
 
-**Extras** incluidos: botón "Instalar", aviso visible cuando no hay conexión,
-desglose porcentual por categoría, filtro por categoría, eliminar gasto individual y vaciar historial.
+**Extras** incluidos: botón "Instalar", aviso visible cuando no hay conexión y filtro del
+historial por categoría.
 
 ---
 
@@ -108,7 +108,7 @@ Hazlo sobre `npm run preview` (localhost) o sobre la URL publicada en GitHub Pag
 
 `public/sw.js` se copia tal cual a `dist/` y se registra desde `src/registerSW.js`.
 
-- **`install`** → abre la caché `mi-billetera-lite-v1.0.6` y guarda el App Shell:
+- **`install`** → abre la caché `mi-billetera-lite-v1.0.9` y guarda el App Shell:
   `index.html`, `assets/app.js`, `assets/app.css`, `manifest.json` y los íconos.
   Cada archivo se cachea por separado para que un 404 aislado no tire la instalación.
 - **`activate`** → recorre `caches.keys()` y borra toda caché `mi-billetera-lite-*` cuyo nombre
@@ -121,7 +121,7 @@ Hazlo sobre `npm run preview` (localhost) o sobre la URL publicada en GitHub Pag
 Los nombres de los archivos generados son fijos (`assets/app.js`, `assets/app.css`, sin hash,
 configurado en [`vite.config.js`](vite.config.js)) justamente para poder listarlos a mano en el App Shell.
 
-> **Al publicar cambios**: sube `CACHE_VERSION` en `public/sw.js` (por ejemplo a `v1.0.7`).
+> **Al publicar cambios**: sube `CACHE_VERSION` en `public/sw.js` (por ejemplo a `v1.1.0`).
 > Si no lo haces, los navegadores que ya visitaron la app seguirán sirviendo la versión vieja
 > desde la caché. Al cambiar la versión, el evento `activate` borra la caché anterior sola.
 >
@@ -226,13 +226,13 @@ mi-billetera-lite/
 ├─ scripts/generate-icons.mjs     # genera los PNG sin dependencias externas
 ├─ src/
 │  ├─ components/
-│  │  ├─ Header.jsx               # marca, estado de red, botón instalar
-│  │  ├─ SummaryCard.jsx          # totalizador + desglose por categoría
+│  │  ├─ Header.jsx               # marca y botón de instalación
+│  │  ├─ SummaryCard.jsx          # totalizador
 │  │  ├─ ExpenseForm.jsx          # formulario de registro
 │  │  └─ ExpenseList.jsx          # historial + filtros
 │  ├─ App.jsx
 │  ├─ db.js                       # IndexedDB (respaldo: localStorage)
-│  ├─ categories.js               # catálogo de categorías y sus colores
+│  ├─ categories.js               # catálogo de categorías
 │  ├─ format.js                   # formato de moneda y fecha (es-MX)
 │  ├─ registerSW.js
 │  ├─ main.jsx

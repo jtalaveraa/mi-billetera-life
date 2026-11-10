@@ -15,10 +15,10 @@ export default function ExpenseForm({ onAdd }) {
 
   const validar = () => {
     const nuevos = {};
-    if (!form.concepto.trim()) nuevos.concepto = 'Escribe un concepto.';
+    if (!form.concepto.trim()) nuevos.concepto = 'Falta el concepto';
     const monto = Number(form.monto);
-    if (form.monto === '' || Number.isNaN(monto)) nuevos.monto = 'Escribe un monto.';
-    else if (monto <= 0) nuevos.monto = 'El monto debe ser mayor a 0.';
+    if (form.monto === '' || Number.isNaN(monto)) nuevos.monto = 'Falta el monto';
+    else if (monto <= 0) nuevos.monto = 'Debe ser mayor a 0';
     return nuevos;
   };
 
@@ -49,7 +49,7 @@ export default function ExpenseForm({ onAdd }) {
           type="text"
           inputMode="text"
           autoComplete="off"
-          placeholder="Ej. Café"
+          placeholder="Café"
           maxLength={60}
           value={form.concepto}
           onChange={(e) => actualizar('concepto', e.target.value)}
@@ -68,7 +68,7 @@ export default function ExpenseForm({ onAdd }) {
             inputMode="decimal"
             step="0.01"
             min="0"
-            placeholder="45.50"
+            placeholder="0.00"
             value={form.monto}
             onChange={(e) => actualizar('monto', e.target.value)}
             aria-invalid={Boolean(errores.monto)}
@@ -80,7 +80,7 @@ export default function ExpenseForm({ onAdd }) {
       <div className="field">
         <span className="field__legend" id="label-categoria">Categoría</span>
         <div className="chips" role="radiogroup" aria-labelledby="label-categoria">
-          {CATEGORIAS.map(({ id, label, color }) => {
+          {CATEGORIAS.map(({ id, label }) => {
             const activa = form.categoria === id;
             return (
               <button
@@ -89,7 +89,6 @@ export default function ExpenseForm({ onAdd }) {
                 role="radio"
                 aria-checked={activa}
                 className={`chip ${activa ? 'chip--active' : ''}`}
-                style={activa ? { '--chip-color': color } : undefined}
                 onClick={() => actualizar('categoria', id)}
               >
                 {label}
@@ -100,12 +99,6 @@ export default function ExpenseForm({ onAdd }) {
       </div>
 
       <button type="submit" className="btn btn--primary btn--block" disabled={enviando}>
-        <svg viewBox="0 0 24 24" className="icon" aria-hidden="true">
-          <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            <path d="M12 5.5v13" />
-            <path d="M5.5 12h13" />
-          </g>
-        </svg>
         Guardar gasto
       </button>
     </form>

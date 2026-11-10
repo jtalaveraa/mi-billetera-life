@@ -126,21 +126,3 @@ export async function addGasto({ concepto, monto, categoria }) {
   }
   return gasto;
 }
-
-/** Elimina un gasto por id. */
-export async function deleteGasto(id) {
-  try {
-    await transaction('readwrite', (store) => store.delete(id));
-  } catch {
-    lsWrite(lsRead().filter((g) => g.id !== id));
-  }
-}
-
-/** Borra todo el historial. */
-export async function clearGastos() {
-  try {
-    await transaction('readwrite', (store) => store.clear());
-  } catch {
-    lsWrite([]);
-  }
-}

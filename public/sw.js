@@ -7,7 +7,7 @@
  *   fetch    -> responde desde caché; si no existe, va a la red y guarda copia.
  * ========================================================================== */
 
-const CACHE_VERSION = 'v1.0.6';
+const CACHE_VERSION = 'v1.0.9';
 const CACHE_NAME = `mi-billetera-lite-${CACHE_VERSION}`;
 
 /**

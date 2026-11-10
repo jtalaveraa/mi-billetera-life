@@ -1,11 +1,11 @@
 /** Catálogo de categorías del enunciado: Comida, Transporte, Servicios, Ocio, Otros. */
 
 export const CATEGORIAS = [
-  { id: 'Comida', label: 'Comida', color: '#FB7185' },
-  { id: 'Transporte', label: 'Transporte', color: '#38BDF8' },
-  { id: 'Servicios', label: 'Servicios', color: '#FBBF24' },
-  { id: 'Ocio', label: 'Ocio', color: '#A78BFA' },
-  { id: 'Otros', label: 'Otros', color: '#94A3B8' },
+  { id: 'Comida', label: 'Comida' },
+  { id: 'Transporte', label: 'Transporte' },
+  { id: 'Servicios', label: 'Servicios' },
+  { id: 'Ocio', label: 'Ocio' },
+  { id: 'Otros', label: 'Otros' },
 ];
 
 export const getCategoria = (id) =>

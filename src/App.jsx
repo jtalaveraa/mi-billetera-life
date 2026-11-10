@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Header from './components/Header.jsx';
 import SummaryCard from './components/SummaryCard.jsx';
 import ExpenseForm from './components/ExpenseForm.jsx';
 import ExpenseList from './components/ExpenseList.jsx';
-import { addGasto, clearGastos, deleteGasto, getGastos } from './db.js';
+import { addGasto, getGastos } from './db.js';
 
 export default function App() {
   const [gastos, setGastos] = useState([]);
@@ -12,9 +12,7 @@ export default function App() {
   const [online, setOnline] = useState(() =>
     typeof navigator === 'undefined' ? true : navigator.onLine
   );
-  const [toast, setToast] = useState(null);
   const [installEvent, setInstallEvent] = useState(null);
-  const toastTimer = useRef(null);
 
   /* ---------------------------- carga inicial ---------------------------- */
   useEffect(() => {
@@ -47,10 +45,7 @@ export default function App() {
       event.preventDefault();
       setInstallEvent(event);
     };
-    const yaInstalada = () => {
-      setInstallEvent(null);
-      mostrarToast('¡App instalada! Ya puedes abrirla desde tu pantalla de inicio.');
-    };
+    const yaInstalada = () => setInstallEvent(null);
     window.addEventListener('beforeinstallprompt', alInstalar);
     window.addEventListener('appinstalled', yaInstalada);
     return () => {
@@ -59,47 +54,18 @@ export default function App() {
     };
   }, []);
 
-  useEffect(() => () => clearTimeout(toastTimer.current), []);
-
-  const mostrarToast = useCallback((mensaje) => {
-    setToast(mensaje);
-    clearTimeout(toastTimer.current);
-    toastTimer.current = setTimeout(() => setToast(null), 2600);
-  }, []);
-
   /* -------------------------------- acciones ----------------------------- */
-  const handleAdd = useCallback(
-    async (datos) => {
-      const gasto = await addGasto(datos);
-      setGastos((prev) => [gasto, ...prev]);
-      mostrarToast(`Gasto "${gasto.concepto}" guardado${navigator.onLine ? '' : ' sin conexión'}.`);
-    },
-    [mostrarToast]
-  );
-
-  const handleDelete = useCallback(
-    async (id) => {
-      await deleteGasto(id);
-      setGastos((prev) => prev.filter((g) => g.id !== id));
-      mostrarToast('Gasto eliminado.');
-    },
-    [mostrarToast]
-  );
-
-  const handleClear = useCallback(async () => {
-    if (!window.confirm('¿Eliminar todos los gastos registrados? Esta acción no se puede deshacer.')) return;
-    await clearGastos();
-    setGastos([]);
-    mostrarToast('Historial vaciado.');
-  }, [mostrarToast]);
+  const handleAdd = useCallback(async (datos) => {
+    const gasto = await addGasto(datos);
+    setGastos((prev) => [gasto, ...prev]);
+  }, []);
 
   const handleInstall = useCallback(async () => {
     if (!installEvent) return;
     installEvent.prompt();
-    const { outcome } = await installEvent.userChoice;
-    if (outcome !== 'accepted') mostrarToast('Puedes instalarla más tarde desde el menú del navegador.');
+    await installEvent.userChoice;
     setInstallEvent(null);
-  }, [installEvent, mostrarToast]);
+  }, [installEvent]);
 
   return (
     <div className="app">
@@ -107,7 +73,7 @@ export default function App() {
 
       {!online && (
         <p className="banner" role="status">
-          Estás sin conexión. Puedes seguir registrando gastos: se guardan en tu dispositivo.
+          Sin conexión. Tus gastos se guardan en este dispositivo.
         </p>
       )}
 
@@ -116,23 +82,12 @@ export default function App() {
         <ExpenseForm onAdd={handleAdd} />
         {cargando ? (
           <section className="card">
-            <div className="skeleton" />
-            <div className="skeleton skeleton--sm" />
+            <p className="empty">Cargando...</p>
           </section>
         ) : (
-          <ExpenseList
-            gastos={gastos}
-            filtro={filtro}
-            onFiltro={setFiltro}
-            onDelete={handleDelete}
-            onClear={handleClear}
-          />
+          <ExpenseList gastos={gastos} filtro={filtro} onFiltro={setFiltro} />
         )}
       </main>
-
-      <div className="toast-area" aria-live="polite" aria-atomic="true">
-        {toast && <div className="toast">{toast}</div>}
-      </div>
     </div>
   );
 }
